@@ -1,1 +1,1 @@
-# exercicios-JavaScript
+# Exercícios de conhecimentos Básicos de JavaScript
