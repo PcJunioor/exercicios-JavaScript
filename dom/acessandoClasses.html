@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Acessando Classes</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class='conteudo exercicio'>
+    <div>
+        Classes
+    </div>
+    <script>
+        // pegar todas as classes de um determinado elemento (div)
+        const div = document.querySelector('div')
+        const classesDiv = div.classList
+        // 'destaque dentro do css'
+        classesDiv.add('destaque')
+        classesDiv.remove('destaque')
+        // alterna o valor
+        classesDiv.toggle('destaque')
+        // verificar se a classe está contida na lista
+        console.log(classesDiv.contains('destaque'))
+        // verifica quantas classes tem, no caso 1 'destaque'
+        console.log(classesDiv.length)
+        classesDiv.toggle('destaque')
+        console.log(classesDiv.length)
+        // exemplo
+        classesDiv.add('destaque1')
+        classesDiv.add('destaque2')
+        classesDiv.toggle('destaque')
+        console.log(classesDiv.length)
+        // Pode usar alguns métodos de array por ter um iterator associado
+        // pode verificar usando o comando no browser dir(document.querySelector('div').classList)
+        // [[Prototype]]:DOMTokenList - exibe as funções disponíveis
+        
+        // exibir todas as classes
+        for(let c of classesDiv){
+            console.log(c)
+        }
+        // usando forEach
+        classesDiv.forEach(c => console.log(c))
+
+    
+    </script>
+</body>
+
+</html>

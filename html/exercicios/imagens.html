@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagens</title>
+</head>
+<body>
+
+    <div wm-slider>
+        <!-- tag de parágrafo ajuda a selecionar as imagens para o slider -->
+        <p>
+            <img src="http://files.cod3r.com.br/curso-web/imagem1.jpg" 
+                alt="Muro da Cidade"
+                width="513" height="342"
+                title="Muro da Cidade por Tarso Bessa">
+        </p>
+        <p>
+            <img src="http://files.cod3r.com.br/curso-web/imagem2.gif" 
+                alt="Intro Cod3r" height="342">
+        </p>
+        <p class="circular">
+            <img src="http://files.cod3r.com.br/curso-web/imagem3.png" 
+                alt="Rio de Janeiro" height="342">
+        </p>
+        <p class="texto">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/120px-Palmeiras_logo.svg.png" 
+                alt="Avatar" height="100" align="left">
+                
+                Quando surge o Alviverde imponente
+                No gramado em que a luta o aguarda
+                Sabe bem o que vem pela frente
+                Que a dureza do prélio não tarda
+                
+                E o Palmeiras no ardor da partida
+                Transformando a lealdade em padrão
+                Sabe sempre levar de vencida
+                E mostrar que de fato é campeão
+                
+                Defesa que ninguém passa
+                Linha atacante de raça
+                Torcida que canta e vibra (2x)
+                
+                Por nosso Alviverde inteiro
+                Que sabe ser brasileiro
+                Ostentando a sua fibra
+                
+        </p>
+        <p class="cidade"></p>
+    
+        <p>
+            <picture>
+                <!-- mostrar uma imagem ou outra de forma condicional
+                    SE IMAGEM < 600px "(min-width: 600px)" -->
+                <source srcset="http://files.cod3r.com.br/curso-web/logo-larga.png"
+                    media="(min-width: 600px)">
+                <!-- Se nenhuma das anteriores for satisfeita, exibe essa -->
+                <img src="http://files.cod3r.com.br/curso-web/logo-estreita.png" alt="Logo">
+            </picture>
+        </p>
+    </div> 
+</body>
+</html>
+<!-- CSS -->
+<style>
+    .circular {
+        width: 513px;
+    }
+    .texto{
+        width: 400px;
+
+    }
+    .texto img {
+        margin-right: 10px;
+    }
+
+    .cidade {
+     width: 513px;
+     height: 342px;
+     background-image: url('http://files.cod3r.com.br/curso-web/imagem4.jpg');
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: 200%;
+    }
+</style>

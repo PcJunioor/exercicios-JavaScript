@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Modificando HTML #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class='conteudo exercicio'>
+    <script>
+        // define o tipo de elemento que deseja criar (body)
+        const body = document.querySelector('body')
+        // define o tipo de elemento que deseja criar (div)
+        const div1 = document.createElement('div')
+        // adiciona a classe
+        div1.classList.add('destaque')
+        // adiciona o conteúdo
+        div1.innerHTML = 'Primeiro'
+        // adiciona atributo em outra div
+        const div2 = document.createElement('div')
+        div2.setAttribute('wm-atributo', 'valor')
+        div2.innerHTML = 'Segundo'
+        // cria a terceira div
+        const div3 = document.createElement('div')
+        div3.innerHTML = 'Terceiro'
+        // appendChild coloca elemento html dentro de outro elemento html 
+        // coloca o elemento no final
+        body.appendChild(div1)
+        body.appendChild(div2)
+        body.appendChild(div3)
+        // forma para inserir antes (mais cirúrgico)
+        const p = document.createElement('p')
+        div3.insertBefore(p, div3.childNodes[0])
+        const texto = document.createTextNode('Antes...')
+        div3.insertBefore(texto, div3.childNodes[0])
+        // criar um clone e diz se é profunda 'deep' (clona elemento atual e os filhos)
+        const div4 = div3.cloneNode(true)
+        // adiciona 'div4' ao body  e remove 'div3'
+        // As cores das divs são definidas no CSS
+        body.appendChild(div4)
+        //body.removeChild(div3)
+        
+    </script>
+</body>
+    
+</html>

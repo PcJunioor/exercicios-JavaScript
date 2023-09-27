@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Selecionar Elementos #04</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body class="conteudo exercicio">
+    <div name="div1">
+        <p>Início</p>
+    </div>
+    <div name="div2">
+        <ul>
+            <li>Pedro</li>
+            <li>Ana</li>
+            <li>Bia</li>
+        </ul>
+    </div>
+    <div>
+        <p>Fim</p>
+    </div>
+    <script>
+        function log(){
+            // imprime o próprio objeto
+            console.log(this)
+        }
+        // adiciona a função criada acima em todos os tipos descritos abaixo, para facilitar o exemplo
+        // * Evitar o uso *
+        HTMLCollection.prototype.log = log
+        HTMLElement.prototype.log = log
+        NodeList.prototype.log = log
+        Node.prototype.log = log
+
+        const lista = document.querySelector('div ul')
+        // imprime o pai da ul, no caso a div2 
+        lista.parentNode.log()
+        // lista de nós da lista 'nodeList' (gera um efeito colatera que pega os espaços no código)
+        lista.childNodes.log()
+        // pega o primeiro elemento da lista, no caso um texto que foi o espaçamento no código
+        // nextSibling pega o próximo elemento
+        lista.firstChild.nextSibling.log()
+        // pegar ultimo elemento, previousSibling pega o elemento anterior
+        lista.lastChild.previousSibling.log()
+        // pegar todos os nós filhos, vem como HTML Collection (Não vem com o espaçamento)
+        lista.children.log()
+        lista.firstElementChild.log()
+        lista.lastElementChild.log()
+        lista.parentNode.nextElementSibling.log()
+        lista.parentNode.previousElementSibling.log()
+        // USAR MAIS ESTA ESTRATÉGIA (pega todos os elementos 'li' contidos em 'ul' dentro de 'div')
+        document.querySelectorAll('div ul li').log()
+
+    </script>
+</body>
+
+</html>

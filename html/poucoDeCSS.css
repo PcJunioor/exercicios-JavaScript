@@ -1,0 +1,18 @@
+﻿#textoPrincipal{
+    font-size: 20px;
+    font-weight: bold;
+    color: aliceblue;
+    background-color: green;
+    
+}
+h1{
+    font-size: 40px;         
+    background-color: aquamarine;
+}
+.fundoVerde{
+    background-color: green;
+    color: aliceblue;
+}
+.negrito{
+    font-weight: bold;
+}
