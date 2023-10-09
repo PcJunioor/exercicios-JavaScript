@@ -14,6 +14,26 @@
     <div id="post"></div>
 
     <script>
-        // ...
+        function exibirResultado (id, dados){
+            const texto = JSON.stringify(dados)
+            document.getElementById(id).innerHTML = texto // colocar os dados dentro da div selecionada 'get' ou 'post'
+        }
+
+        // CHAMADA DA FUNÇÃO EXIBIRRESULTADO
+        axios('parOuImpar?numero=5').then(resposta => exibirResultado('get', resposta.data))
+        // **   OUTRA FORMA DE FAZER**
+        // axios.get('parOuImpar', {
+        //     params: {
+        //         numero: 6
+        //     }
+        // }).then(resposta => exibirResultado('get', resposta.data))
+
+        // Axios usa promises
+        // reutilizou o método 'post' contido no server.js de outras aulas
+        axios.post('formulario', {
+            nome: 'João',
+            sobrenome: 'Silva'
+        }).then(resposta => exibirResultado('post', resposta.data))
+        
     </script>
 </body>

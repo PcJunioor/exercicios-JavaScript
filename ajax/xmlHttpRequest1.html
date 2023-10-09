@@ -11,6 +11,69 @@
     <h1>Estados</h1>
 
     <script>
-        // ...
+        function ajax(config){
+            // XMLHttpRequest = objeto do javaScript
+            const xhr = new XMLHttpRequest()
+            // abrir um req tipo GET e espera receber uma url e assincrono = true
+            xhr.open(config.metodo, config.url, true)
+
+            xhr.onload = evento =>{
+                // 200 = a linha de sucesso do XMLHttpRequest
+                if(xhr.status == 200){
+                    // xhr.response - pega o texto puro
+                    config.sucesso(xhr.response)
+                    // 400 = erro do cliente ou servidor
+                } else if (xhr.status >= 400){
+                    config.erro({
+                        codigo: xhr.status,
+                        texto: xhr.statusText
+                    })
+
+                }
+            }
+            // envia a requisição
+            xhr.send()
+        }
+
+        function criarTabela(estados){
+            const linhas = estados.map(estado =>{
+                // td = table data
+                const tdId = document.createElement('td')
+                tdId.innerHTML = estado.id
+                const tdNome = document.createElement('td')
+                tdNome.innerHTML = estado.nome
+                const tdSigla = document.createElement('td')
+                tdSigla.innerHTML = estado.sigla
+                // inserir as td dentro da  tr = TableRow(linha de tabela)
+                const tr = document.createElement('tr')
+                tr.appendChild(tdId)
+                tr.appendChild(tdSigla)
+                tr.appendChild(tdNome)
+                
+                return tr
+            })
+            // construir tabela usando a DOM
+            const tabela = document.createElement('table')
+            // adiciona todas as linhas criadas e adiciona na tablea
+            linhas.forEach(linha => tabela.appendChild(linha))
+            // add tabela no body
+            document.body.appendChild(tabela)
+        }
+        // CHAMAR A FUNÇÃO AJAX PASSANDO COMO PARÂMETRO
+        // OBJETO CONTENDO URL, METODO, SUCESSO E ERRO
+        ajax({
+            url: "dados/estados.json",
+            metodo: "get",
+            sucesso(resposta){
+                // transforma o texto puro em JSON
+                const estados = JSON.parse(resposta)
+                criarTabela(estados)
+            },
+            erro(e){
+                // codigo e texto são atributos do objeto erro criados na função ajax
+                const msg = document.createTextNode(`${e.codigo}: ${e.texto}`)
+                document.body.appendChild(msg)
+            }
+        })
     </script>
 </body>

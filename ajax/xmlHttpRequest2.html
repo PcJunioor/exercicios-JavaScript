@@ -9,8 +9,8 @@
         input[type=file] {
             display: flex;
             margin: 10px;
-            padding: 40px;
-            font-size: 40px;
+            padding: 20px;
+            font-size: 20px;
             background: crimson;
             border-radius: 20px;
         }
@@ -22,6 +22,38 @@
     <div class="progresso"></div>
 
     <script>
-        // ...
+        // parâmetro 'config' é um objeto que tem atributos 'progresso' 'url' 'formData'
+        function ajaxUpload(config){
+            const xhr = new XMLHttpRequest()
+            // se a funcionalidade 'upload' estiver no objeto xhr, significa que pode fazer o upload
+            if(xhr.upload){
+                // monitorar o progresso do upload
+                xhr.upload.onprogress = event =>{
+                    const atual = event.loaded // o que já foi carregado
+                    const total = event.total // tamanho do arquivo
+                    const percentual = Math.floor(atual / total * 100)
+                    config.progresso({atual, total, percentual})
+                }
+            }
+            xhr.open(config.metodo, config.url, true)
+            xhr.send(config.formData)
+        }
+        // no momento que selecionar o arquivo
+        document.querySelector('input[type=file]').onchange = event =>{
+            const formData = new FormData()
+            const inputFile = event.target
+            formData.append(inputFile.name, inputFile.files[0]) //event.target é o input[type=file] = 'arquivo'
+
+            ajaxUpload({
+                url: "upload", //'upload' tem que ser igual a url especificada no servidor backend
+                formData: formData, // 'formData: formData' é a mesma que que 'formData'
+                metodo: "post",
+                // colocar dentro da div o progresso
+                progresso(dados){
+                    const progresso = document.querySelector('.progresso')
+                    progresso.innerHTML = JSON.stringify(dados)     
+                }
+            })
+        }        
     </script>
 </body>

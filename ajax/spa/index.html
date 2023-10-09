@@ -20,11 +20,45 @@
 
 <body class="conteudo">
     <nav>
-        <a href wm-link="series.html" wm-destino=".pagina">Séries</a> |
-        <a href wm-link="linguagens.html" wm-destino=".pagina">Linguagens</a>
+        <a href wm-link="series.html" wm-destino=".pagina">Séries</a> | <!-- joga o conteudo para div .pagina -->
+        <a href wm-link="linguagens.html" wm-destino=".pagina">Linguagens</a> <!-- joga o conteudo para div .pagina -->
     </nav>
     <div class="pagina"></div>
     <script>
-        // ...
+        // parâmetros da função 'series.html' e '.pagina'
+        function navegarViaAjax(url, seletor, push = true){
+            if(!url || !seletor) return // sai da função se faltar algum parametro
+            const elemento = document.querySelector(seletor)
+            fetch(url)
+                .then(resp => resp.text()) // pega o texto do html
+                .then(html =>{
+                    elemento.innerHTML = html
+                    if(push){
+                        // colocar no histórico do navegador
+                        // cria objeto seletor:seletor com o parâmetro recebido na função - null é o titulo da pagina
+                        history.pushState({seletor}, null, url)    
+                    }
+                })
+                   
+
+        }
+
+        document.querySelectorAll('[wm-link]').forEach(link =>{
+            const url = link.attributes['wm-link'].value // pega o valor do atributo personalizado dentro do link
+            const seletorDestino = link.attributes['wm-destino'].value
+
+            link.onclick = event =>{
+                event.preventDefault()
+                navegarViaAjax(url, seletorDestino)
+            }
+        })
+        // tira o primeiro elemento da pilha
+        window.onpopstate = event =>{
+            if(event.state){
+                // window.location.href = url que acabou de add no histórico  'history.pushState({seletor}, null, url)'
+                // event.state.seletor = objeto criado em 'history.pushState({seletor}, null, url)'   
+                navegarViaAjax(window.location.href, event.state.seletor, false) //false para não criar outro histórico
+            }
+        }
     </script>
 </body>
