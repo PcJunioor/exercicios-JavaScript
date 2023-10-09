@@ -11,6 +11,17 @@
     <h1>Estados</h1>
 
     <script>
-        // ...
+        const url = 'dados/estados.json'
+        
+        // FETCH - forma mais moderna e simples de utilizar xmlHttpRequest
+        // retorna um promise
+        fetch(url)
+            .then(resposta => resposta.json()) //json() converte e retorna uma promise
+            .then(estados =>{
+                const itens = estados.reduce(
+                    (acumulador, estado) => acumulador + `<li>${estado.sigla} - ${estado.nome}</li>`,''
+                )
+                document.body.insertAdjacentHTML('beforeend', `<ul>${itens}</ul>`)
+            })
     </script>
 </body>

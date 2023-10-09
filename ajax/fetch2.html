@@ -29,6 +29,46 @@
     </form>
     <div id="resultado"></div>
     <script>
-        // ...
+        // usuarioForm - nome do formulário
+        // onsubmit - intercepta a submissão do formulário
+        document.usuarioForm.onsubmit = async event =>{
+            event.preventDefault()
+            const form = event.target // form é quem recebeu a ação do evento
+            const data = new FormData(form) // pega todos os dados preenchidos no formulário e joga dentro de data
+
+            data.append('ajax', true) // não altera em nada, mas exemplifica que pode add novos dados dentro do objeto
+
+            // objeto de config para função fatch
+            const options = {
+                method: form.method, // obtém o método já definido no form(post)
+                body: new URLSearchParams(data) // passar os dados do formulário pra ser enviado ao servidor via ajax
+            }
+
+            // pega a div 'resultado'
+            const resultado = document.getElementById('resultado')
+            
+            // *** USANDO ASYNC AWAIT ***    
+            try{
+                // form.action = 'formulario' especificado no form com a tag 'action' 
+                // 'formulario' é a url que o formulário ira disparar
+                const resp = await fetch(form.action, options)
+                const json = await resp.json()
+                resultado.innerHTML = JSON.stringify(json)
+            } catch(erro){
+                resultado.innerHTML= erro
+            }
+            
+            // *** USANDO PROMISE ***
+            // fetch(form.action, options) // retorna um promise
+            //     .then(resposta => resposta.json()) //json() converte e retorna uma promise
+            //     .then(json =>{
+            //         resultado.innerHTML = JSON.stringify(json) 
+            //     })
+            //     .catch(erro =>{
+            //         resultado.innerHTML = erro
+            //     })
+            
+            
+        }
     </script>
 </body>

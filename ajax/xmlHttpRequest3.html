@@ -11,6 +11,52 @@
     <h1>Estados</h1>
 
     <script>
-        // ...
+        function ajax(config){
+            const xhr = new XMLHttpRequest()
+            
+            xhr.open(config.metodo, config.url, true) // true = assincrono
+            // sempre que o status da requisição mudar
+            xhr.onreadystatechange = e =>{
+                //  4 - quando a requisição foi finalizada e a resposta está pronta
+                //  propriedades do método XMLHttpRequest contidas em > w3schools.com
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        // responseXML - faz com que quando for passada pra função sucesso
+                        // ja retorna um objeto resolvido a partir do XML
+                        config.sucesso(xhr.responseXML)                            
+                    } else if(xhr.status >= 400){
+                        config.erro({
+                            codigo: xhr.status,
+                            texto: xhr.statusText
+                        })
+                    }
+                }              
+            }
+            xhr.send()
+        }
+        //  chamanado a função 
+        ajax({
+            url: "dados/estados.xml",
+            metodo: "get",
+            sucesso(resposta){
+                // para verificar no console o conteúdo da resposta
+                console.log(resposta)
+                //  pega toda a lista de estados
+                const estados = resposta.getElementsByTagName('estado')
+                // transforma em array
+                const itens = Array.from(estados).reduce(
+                    // o acumulador é do padrão do reduce
+                    // está salvando como STRING - valor inicial da função reduce = '' (string vazia)
+                    (acumulador, estado) => acumulador + `<li>${estado.attributes.sigla.value} - ${estado.attributes.nome.value}</li>`, '' 
+                )
+                console.log(itens)
+                // inserir antes de terminar o 'body'
+                document.body.insertAdjacentHTML('beforeend', `<ul>${itens}</ul>`)
+            },
+            erro(e){
+                const msg = document.createTextNode(`${e.codigo}: ${e.texto}`)
+                document.body.appendChild(msg)
+            }
+        })
     </script>
 </body>
